@@ -17,31 +17,57 @@ int main() {
     int navio1[3] = {3, 3, 3}; // horizontal
     int navio2[3] = {3, 3, 3}; // vertical
 
-    // Coordenadas iniciais dos navios
-    int linhaNavioHorizontal = 2;
-    int colunaNavioHorizontal = 4;
+    int navio3[3] = {3, 3, 3}; //diagonal1
+    int navio4[3] = {3, 3, 3}; //diagonal2
 
-    int linhaNavioVertical = 5;
-    int colunaNavioVertical = 7;
+    // Coordenadas iniciais dos navios
+    int linhaNavio1Horizontal = 2;
+    int colunaNavio1Horizontal = 4;
+
+    int linhaNavio2Vertical = 5;
+    int colunaNavio2Vertical = 7;
+
+    int linhanavio3diagonal = 3;
+    int colunanavio3diagonal = 1;
+
+    int linhanavio4diagonal = 5;
+    int colunanavio4diagonal = 5;
 
     // Posiciona navio horizontal
     for (int j = 0; j < 3; j++) {
-        matriz[linhaNavioHorizontal][colunaNavioHorizontal + j] = navio1[j];
+        matriz[linhaNavio1Horizontal][colunaNavio1Horizontal + j] = navio1[j];
     }
 
     // Posiciona navio vertical
     for (int i = 0; i < 3; i++) {
-        matriz[linhaNavioVertical + i][colunaNavioVertical] = navio2[i];
+        matriz[linhaNavio2Vertical + i][colunaNavio2Vertical] = navio2[i];
     }
 
-    // Exibe o tabuleiro
-    printf("Tabuleiro de Batalha Naval:\n");
-    for (int i = 0; i < 10; i++) {
+    // Posiciona diagonal 1 
+    for(int d = 0; d < 3; d++){
+        matriz[linhanavio3diagonal + d][colunanavio3diagonal + d] = navio3[d];
+    }//Essa diagonal vai para baixo e direita
+
+    //Posiciona diagonal 2
+    for(int a = 0; a < 3; a++){
+        matriz[linhanavio4diagonal - a][colunanavio4diagonal + a] = navio4[a];
+    }//Essa diagonal vai para cima e direita
+
+    
+
+    //Exibe o tabuleiro
+    printf("---A batalha naval---\n");
+    printf("\n");
+    printf("   A B C D E F G H I J\n"); //Cabeçalho do tabuleiro
+
+     for (int i = 0; i < 10; i++) {
+        printf("%2d ", i + 1); // imprime número da linha (1 a 10)
         for (int j = 0; j < 10; j++) {
             printf("%d ", matriz[i][j]);
         }
         printf("\n");
     }
+    
 
 
 
