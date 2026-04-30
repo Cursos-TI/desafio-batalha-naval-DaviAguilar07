@@ -13,12 +13,21 @@ int main() {
     // Tabuleiro 10x10 inicializado com zeros
     int matriz[10][10] = {0};
 
-    // Dois navios de tamanho 3
+    int matriz2cone[5][5] = {5};//Cone-Habilidade
+    int matriz3cruz[5][5] = {5};//Cruz-Habilidade
+    int matriz4octaedro[5][5] = {5};//Octaedro-Habilidade
+
+    // Quatro navios de tamanho 3
     int navio1[3] = {3, 3, 3}; // horizontal
     int navio2[3] = {3, 3, 3}; // vertical
 
     int navio3[3] = {3, 3, 3}; //diagonal1
     int navio4[3] = {3, 3, 3}; //diagonal2
+
+     int habilidadecone[5] = {5, 5, 5, 5, 5}; //Habilidade-Cone
+     int habilidadecruz[5] = {5, 5, 5, 5, 5}; //Habilidade-Cruz
+     int habilidadeoctaedro[5] = {5, 5, 5, 5, 5}; //Habilidade-Octaedro
+
 
     // Coordenadas iniciais dos navios
     int linhaNavio1Horizontal = 2;
@@ -32,6 +41,22 @@ int main() {
 
     int linhanavio4diagonal = 5;
     int colunanavio4diagonal = 5;
+
+    //Coordenadas das habiidades
+    int linhahabilidadecone = 4;
+    int colunahabilidadecone = 4;
+
+    int linhahabilidadecruz = 6;
+    int colunahabilidadecruz = 6;
+
+    int linhahabilidadeoctaedro = 3;
+    int colunahabilidadeoctaedro = 6;
+
+    //Área de afetamento
+    int valor1 = 1;
+
+
+
 
     // Posiciona navio horizontal
     for (int j = 0; j < 3; j++) {
@@ -55,6 +80,56 @@ int main() {
 
     
 
+    // Construção dinâmica das matrizes de habilidade
+    // Cone
+    for(int i = 0; i < 5; i++){
+        for(int j = 0; j < 5; j++){
+            if(j >= 2 - i && j <= 2 + i) matriz2cone[i][j] = 1;
+            else matriz2cone[i][j] = 0;
+        }
+    }
+
+    // Cruz
+    for(int i = 0; i < 5; i++){
+        for(int j = 0; j < 5; j++){
+            if(i == 2 || j == 2) matriz3cruz[i][j] = 1;
+            else matriz3cruz[i][j] = 0;
+        }
+    }
+
+    // Octaedro
+    for(int i = 0; i < 5; i++){
+        for(int j = 0; j < 5; j++){
+            if(abs(i-2) + abs(j-2) <= 2) matriz4octaedro[i][j] = 1;
+            else matriz4octaedro[i][j] = 0;
+        }
+    }
+
+    // Função de sobreposição no tabuleiro
+    int offset = 2; // centro da matriz 5x5
+    for(int i = 0; i < 5; i++){
+        for(int j = 0; j < 5; j++){
+            if(matriz2cone[i][j] == 1){
+                int linha = linhahabilidadecone + (i - offset);
+                int coluna = colunahabilidadecone + (j - offset);
+                if(linha >= 0 && linha < 10 && coluna >= 0 && coluna < 10)
+                    matriz[linha][coluna] = 5;
+            }
+            if(matriz3cruz[i][j] == 1){
+                int linha = linhahabilidadecruz + (i - offset);
+                int coluna = colunahabilidadecruz + (j - offset);
+                if(linha >= 0 && linha < 10 && coluna >= 0 && coluna < 10)
+                    matriz[linha][coluna] = 5;
+            }
+            if(matriz4octaedro[i][j] == 1){
+                int linha = linhahabilidadeoctaedro + (i - offset);
+                int coluna = colunahabilidadeoctaedro + (j - offset);
+                if(linha >= 0 && linha < 10 && coluna >= 0 && coluna < 10)
+                    matriz[linha][coluna] = 5;
+            }
+        }
+    }
+
     //Exibe o tabuleiro
     printf("---A batalha naval---\n");
     printf("\n");
@@ -68,9 +143,6 @@ int main() {
         printf("\n");
     }
     
-
-
-
     // Nível Aventureiro - Expansão do Tabuleiro e Posicionamento Diagonal
     // Sugestão: Expanda o tabuleiro para uma matriz 10x10.
     // Sugestão: Posicione quatro navios no tabuleiro, incluindo dois na diagonal.
